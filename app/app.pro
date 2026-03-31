@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     rulebar.cpp \
     drawview.cpp \
     commands.cpp \
-    document.cpp
+    document.cpp \
+    textitem.cpp
 
 HEADERS  += mainwindow.h \
     drawobj.h \
@@ -36,7 +37,8 @@ HEADERS  += mainwindow.h \
     rulebar.h \
     drawview.h \
     commands.h \
-    document.h
+    document.h \
+    textitem.h
 
 RESOURCES += \
     app.qrc

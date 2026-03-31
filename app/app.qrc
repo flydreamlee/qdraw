@@ -34,5 +34,6 @@
         <file>icons/copy.png</file>
         <file>icons/cut.png</file>
         <file>icons/paste.png</file>
+        <file>icons/item_text.png</file>
     </qresource>
 </RCC>

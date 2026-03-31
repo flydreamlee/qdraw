@@ -226,6 +226,10 @@ void MainWindow::createActions()
     polylineAct->setCheckable(true);
     bezierAct= new QAction(QIcon(":/icons/bezier.png"),tr("bezier tool"),this);
     bezierAct->setCheckable(true);
+    bezierAct= new QAction(QIcon(":/icons/bezier.png"),tr("bezier tool"),this);
+    bezierAct->setCheckable(true);
+    textAct= new QAction(QIcon(":/icons/item_text.png"),tr("text tool"),this);
+    textAct->setCheckable(true);
 
     rotateAct = new QAction(QIcon(":/icons/rotate.png"),tr("rotate tool"),this);
     rotateAct->setCheckable(true);
@@ -239,6 +243,7 @@ void MainWindow::createActions()
     drawActionGroup->addAction(polygonAct);
     drawActionGroup->addAction(polylineAct);
     drawActionGroup->addAction(bezierAct);
+    drawActionGroup->addAction(textAct);
     drawActionGroup->addAction(rotateAct);
     selectAct->setChecked(true);
 
@@ -251,6 +256,7 @@ void MainWindow::createActions()
     connect(polygonAct,SIGNAL(triggered()),this,SLOT(addShape()));
     connect(polylineAct,SIGNAL(triggered()),this,SLOT(addShape()));
     connect(bezierAct,SIGNAL(triggered()),this,SLOT(addShape()));
+    connect(textAct,SIGNAL(triggered()),this,SLOT(addShape()));
     connect(rotateAct,SIGNAL(triggered()),this,SLOT(addShape()));
 
     deleteAct = new QAction(tr("&Delete"), this);
@@ -319,6 +325,7 @@ void MainWindow::createMenus()
     shapeTool->addAction(polygonAct);
     shapeTool->addAction(polylineAct);
     shapeTool->addAction(bezierAct);
+    shapeTool->addAction(textAct);
     shapeTool->addAction(rotateAct);
     toolMenu->addMenu(shapeTool);
     QMenu *alignMenu = new QMenu("Align");
@@ -374,6 +381,7 @@ void MainWindow::createToolbars()
     drawToolBar->addAction(polygonAct);
     drawToolBar->addAction(polylineAct);
     drawToolBar->addAction(bezierAct);
+    drawToolBar->addAction(textAct);
     drawToolBar->addAction(rotateAct);
 
     // create align toolbar
@@ -551,7 +559,7 @@ DrawView *MainWindow::createMdiChild()
     view->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 
     // move orign point to leftbottom
-    view->setTransform(view->transform().scale(1,-1));
+//    view->setTransform(view->transform().scale(1,-1));
 
 
     scene->setBackgroundBrush(Qt::darkGray);
@@ -582,6 +590,8 @@ void MainWindow::addShape()
         DrawTool::c_drawShape = rotation;
     else if (sender() == polylineAct )
         DrawTool::c_drawShape = polyline;
+    else if (sender() == textAct )
+        DrawTool::c_drawShape = text;
 
     if ( sender() != selectAct && sender() != rotateAct ){
         activeMdiChild()->scene()->clearSelection();
@@ -604,6 +614,7 @@ void MainWindow::updateActions()
     rotateAct->setEnabled(scene);
     polygonAct->setEnabled(scene);
     polylineAct->setEnabled(scene);
+    textAct->setEnabled(scene);
 
     zoomInAct->setEnabled(scene);
     zoomOutAct->setEnabled(scene);
@@ -617,6 +628,7 @@ void MainWindow::updateActions()
     rotateAct->setChecked(DrawTool::c_drawShape == rotation);
     polygonAct->setChecked(DrawTool::c_drawShape == polygon);
     polylineAct->setChecked(DrawTool::c_drawShape == polyline );
+    textAct->setChecked(DrawTool::c_drawShape == text );
     undoAct->setEnabled(undoStack->canUndo());
     redoAct->setEnabled(undoStack->canRedo());
 

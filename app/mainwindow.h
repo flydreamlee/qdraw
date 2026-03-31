@@ -153,6 +153,7 @@ private:
     QAction  * polygonAct;
     QAction  * polylineAct;
     QAction  * bezierAct;
+    QAction  * textAct;
     QAction  * rotateAct;
 
     QAction *closeAct;

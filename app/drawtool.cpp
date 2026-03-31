@@ -8,6 +8,7 @@
 #include "drawobj.h"
 #define PI 3.1416
 
+#include "textitem.h"
 QList<DrawTool*> DrawTool::c_tools;
 QPointF DrawTool::c_down;
 QPointF DrawTool::c_last;
@@ -19,6 +20,7 @@ static SelectTool selectTool;
 static RectTool   rectTool(rectangle);
 static RectTool   roundRectTool(roundrect);
 static RectTool   ellipseTool(ellipse);
+static RectTool   textTool(text);
 
 static PolygonTool lineTool(line);
 static PolygonTool polygonTool(polygon);
@@ -440,6 +442,7 @@ void RectTool::mousePressEvent(QGraphicsSceneMouseEvent *event, DrawScene *scene
     switch ( c_drawShape ){
     case rectangle:
         item = new GraphicsRectItem(QRect(1,1,1,1));
+qDebug() << "RectTool::mousePressEvent(), new GraphicsRectItem(), item->childItems().size() = " << item->childItems().size();
         break;
     case roundrect:
         item = new GraphicsRectItem(QRect(1,1,1,1),true);
@@ -447,6 +450,20 @@ void RectTool::mousePressEvent(QGraphicsSceneMouseEvent *event, DrawScene *scene
     case ellipse:
         item = new GraphicsEllipseItem(QRect(1,1,1,1));
         break;
+    case text:
+//        item = new GraphicsTextItem();
+        item = new GraphicsTextItem(QRect(1,1,1,1));//,dl_tr.tr("Key in Text..."));
+//        textItem = dynamic_cast<GraphicsTextItem*>(item);
+//        font = textItem->font();
+        //font.setFamily("Arial");
+//		font.setFamily(DEFAULT_FONT_TEXT);
+//        font.setPointSizeF(12.0);
+        //qDebug() << "setFamily:"<<font.family();
+        //qDebug() << "setPointSizeF:"<<font.pointSizeF();
+//        textItem->setFont(font);
+//        textItem->setText(dl_tr.tr("Key in Text..."));
+        break;
+
     }
     if ( item == 0) return;
     c_down+=QPoint(2,2);
